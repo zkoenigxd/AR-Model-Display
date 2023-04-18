@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<QCARInfo>
+    <TargetSet version="36.0" toolVersion="v5.7.2">
+        <ModelTarget name="ToasterReferenceFile" targetId="f83eff3f212041d9ae86d2ebfffb2d58" version="13.0" toolVersion="v5.7.2" bbox="-0.149713 0.001610 -0.000029 -0.000176 0.160620 0.258756" trackingMode="car" upVector="0.0 1.0 0.0" optimizeTrackingFor="default" realisticTextures="no" />
+    </TargetSet>
+    <Assembly name="ToasterReferenceFile" assemblyId="947184e480084d34b6892f8cc360dd6d">
+        <Part name="ToasterReferenceFile" translation="0 0 0" rotation="AD: 0 0 1 0" />
+        <EntryPoint name="(none)" trained="yes" />
+    </Assembly>
+</QCARInfo>
