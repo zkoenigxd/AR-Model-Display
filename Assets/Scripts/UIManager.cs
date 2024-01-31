@@ -1,15 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.XR.LegacyInputHelpers;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject title;
     [SerializeField] GameObject mainMenu;
     [SerializeField] List<GameObject> subMenus;
-    [SerializeField] List<GameObject> partModels;
 
 
     void Start()
