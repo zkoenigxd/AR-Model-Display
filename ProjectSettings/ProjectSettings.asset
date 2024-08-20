@@ -879,9 +879,9 @@ PlayerSettings:
   metroPackageVersion: 10.14.4.0
   metroCertificatePath: Assets\WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: Vuforia
-  metroCertificateIssuer: Vuforia
-  metroCertificateNotAfter: 80a428773e1cd501
+  metroCertificateSubject: Texas State University
+  metroCertificateIssuer: Texas State University
+  metroCertificateNotAfter: 80cf77f99d73db01
   metroApplicationDescription: Model Tracking Lab
   wsaImages:
     65636: Assets/Common/Icons/UWP/StoreLogo.scale-100.png
@@ -927,7 +927,7 @@ PlayerSettings:
   metroSplashScreenUseBackgroundColor: 1
   platformCapabilities:
     WindowsStoreApps:
-      CodeGeneration: False
+      EnterpriseAuthentication: False
       OfflineMapsManagement: False
       HumanInterfaceDevice: False
       Location: False
@@ -960,10 +960,10 @@ PlayerSettings:
       PointOfService: False
       RecordedCallsFolder: False
       Contacts: False
-      Proximity: False
       InternetClient: True
+      CodeGeneration: False
       BackgroundMediaPlayback: False
-      EnterpriseAuthentication: False
+      Proximity: False
   metroTargetDeviceFamilies:
     Desktop: False
     Holographic: False

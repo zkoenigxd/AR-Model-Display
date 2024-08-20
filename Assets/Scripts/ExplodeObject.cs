@@ -2,24 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Microsoft.MixedReality.Toolkit.UI;
+using Microsoft.MixedReality.Toolkit.Input;
+using TMPro;
 
 public class ExplodeObject : MonoBehaviour
 {
-    // PUBLIC
-    // This public variable should be turned on durning runtime to adjust the "endPosition" while in playmode
-    public bool positionAdjustmentMode;
-    // Note: Adjusments made in playmode must be re-entered after exiting playmode
-    // Note: Alternitively, you can right-click "copy" the "ExplodeObject" component and paste it after exiting playmode (this will only work for one item at a time)
-
-
     // PRIVATE
     Vector3 startPosition;
     Vector3 startSize;
-    bool exploding;
 
     // PRIVATE && EXPOSED TO EDITOR
     [SerializeField] Vector3 endPosition;
-    [SerializeField] float moveSpeed;
+    [SerializeField] float lerpDuration;
 
     // Caches the objects values on load. These are leveraged by the reset function.
     void Awake()
@@ -28,28 +23,66 @@ public class ExplodeObject : MonoBehaviour
         startSize = transform.localScale;
     }
 
-    // When oject is active, this checks to see if it has reached its exploded position. If it hasn't, it moves it in that direction until it is very close to the destination.
-    private void Update()
-    {
-        if (exploding)
-        {
-            transform.localPosition += moveSpeed * Time.deltaTime * (endPosition - transform.localPosition).normalized;
-            if (transform.localPosition.magnitude - endPosition.magnitude > .00000001f)
-                exploding = positionAdjustmentMode;
-        }
-
-    }
-
     public void ExplodeGameObject()
     {
-        exploding = true;
+        StartCoroutine(LerpPosition(endPosition, lerpDuration));
+        StartCoroutine(LerpScale(startSize, lerpDuration));
+    }
+
+    public void AssembleGameObject()
+    {
+        StartCoroutine(LerpPosition(startPosition, lerpDuration));
+        StartCoroutine(LerpScale(startSize, lerpDuration));
     }
 
     // Resets the object's size and scale based on its editor values when the experience first loads
     public void ResetSizeandPosition()
     {
-        exploding = false;
         transform.localPosition = startPosition;
         transform.localScale = startSize;
+        //ManipulatorState(false);
+    }
+
+    IEnumerator LerpScale(Vector3 targetScale, float duration)
+    {
+        float time = 0;
+        Vector3 startScale = transform.localScale;
+
+        while (time < duration)
+        {
+            transform.localScale = Vector3.Lerp(startScale, targetScale, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        transform.localScale = targetScale;
+        Debug.Log("Scale complete");
+    }
+
+    IEnumerator LerpPosition(Vector3 targetPosition, float duration)
+    {
+        float time = 0;
+        Vector3 startPosition = transform.localPosition;
+
+        while (time < duration)
+        {
+            transform.localPosition = Vector3.Lerp(startPosition, targetPosition, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        transform.localPosition = targetPosition;
+        Debug.Log("Move complete");
+        ManipulatorState(true);
+    }
+
+    private void ManipulatorState(bool state)
+    {
+        if (gameObject.GetComponent<ObjectManipulator>() != null)
+        {
+            gameObject.GetComponent<ObjectManipulator>().enabled = state;
+        }
+        if (gameObject.GetComponent<NearInteractionGrabbable>() != null)
+        {
+            gameObject.GetComponent<NearInteractionGrabbable>().enabled = state;
+        }
     }
 }

@@ -6,12 +6,21 @@ public class ExplodeManager : MonoBehaviour
 {
     [SerializeField] List<GameObject> explodablePartsList;
 
-    public void ActivateParts()
+    public void ExplodeParts()
     {
         foreach(GameObject part in explodablePartsList)
         {
             part.SetActive(true);
             part.GetComponent<ExplodeObject>().ExplodeGameObject();
+        }
+    }
+
+    public void AssembleParts()
+    {
+        foreach (GameObject part in explodablePartsList)
+        {
+            part.SetActive(true);
+            part.GetComponent<ExplodeObject>().AssembleGameObject();
         }
     }
 
